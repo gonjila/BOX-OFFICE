@@ -1,25 +1,31 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Navs from './components/Navs';
+import Home from './pages/Home';
+import Starred from './pages/Starred';
 
 const App = () => {
     return (
-        <Switch>
-            <Route exact path="/">
-                <h1>
-                    here is home page
-                </h1>
-            </Route>
-            <Route exact path="/starred">
-                <h1>
-                    here is page for starred movies
-                </h1>
-            </Route>
-            <Route>
-                <h1>
-                    here is error:404 page
-                </h1>
-            </Route>
-        </Switch>
+        <div>
+            <Navs />
+            <Switch>
+                <Route exact={true} path="/">
+                    <h1>
+                        <Home />
+                    </h1>
+                </Route>
+                <Route exact path="/starred">
+                    <h1>
+                        <Starred />
+                    </h1>
+                </Route>
+                <Route>
+                    <div>
+                        Not found
+                    </div>
+                </Route>
+            </Switch>
+        </div>
     )
 }
 
