@@ -1,10 +1,11 @@
 import React from 'react'
+import MainPageLayout from '../components/MainPageLayout'
 
 const home = () => {
     return (
-        <div>
+        <MainPageLayout>
             here is home page
-        </div>
+        </MainPageLayout>
     )
 }
 
