@@ -9,7 +9,7 @@ const Home = () => {
     const [result, setResult] = useState(null);
     const [searchOption, setSearchOption] =useState('shows');
     
-    const isSearchSows = searchOption === 'shows'
+    const isSearchShows = searchOption === 'shows'
 
     const onSearch = () => {
         apiGet(`/search/${searchOption}?q=${input}`).then(result => {
@@ -48,12 +48,12 @@ const Home = () => {
             <div>
                 <label htmlFor="shows-search">
                     shows
-                    <input type="radio" id="shows-search" value="shows" checked={isSearchSows} onChange={onRadioChange} />
+                    <input type="radio" id="shows-search" value="shows" checked={isSearchShows} onChange={onRadioChange} />
                 </label>
                 {" "}
                 <label htmlFor="actors-search">
                     actors
-                    <input type="radio" id="actors-search" value="people" checked={!isSearchSows} onChange={onRadioChange} />
+                    <input type="radio" id="actors-search" value="people" checked={!isSearchShows} onChange={onRadioChange} />
                 </label>
             </div>
 
