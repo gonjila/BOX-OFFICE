@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import ActorGrid from '../components/actor/ActorGrid';
 import CustomRadio from '../components/CustomRadio';
 import MainPageLayout from '../components/MainPageLayout';
@@ -6,6 +6,17 @@ import ShowGrid from '../components/show/ShowGrid';
 import {apiGet} from '../misc/config'
 import { useLastQuery } from '../misc/custom-hooks';
 import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.styled';
+
+
+const renderResult = (result) => {
+    if(result && result.length === 0 ) {
+        return <div>no result</div>
+    };
+    if(result && result.length > 0) {
+        return result[0].show ? <ShowGrid data={result} /> : <ActorGrid data={result} />
+    };
+    return null;
+};
 
 const Home = () => {
     const [input, setInput] = useLastQuery();
@@ -20,9 +31,9 @@ const Home = () => {
         });
     };
 
-    const onInputChange = (ev) => {
+    const onInputChange = useCallback((ev) => {
         setInput(ev.target.value);
-    };
+    }, [setInput])
     
     const onKeyDown = (ev) => {
         if(ev.keyCode === 13){
@@ -30,20 +41,11 @@ const Home = () => {
         }
     };
 
-    const onRadioChange = (ev) => {
+    const onRadioChange = useCallback((ev) => {
         setSearchOption(ev.target.value)
-    }
+    },[])
 
-    const renderResult = () => {
-        if(result && result.length === 0 ) {
-            return <div>no result</div>
-        };
-        if(result && result.length > 0) {
-            return result[0].show ? <ShowGrid data={result} /> : <ActorGrid data={result} />
-        };
-        return null;
-    };
-
+    
     return (
         <MainPageLayout>
             <SearchInput type="search" placeholder="searching here" onChange={onInputChange} onKeyDown={onKeyDown} value={input} />
@@ -61,7 +63,7 @@ const Home = () => {
             <SearchButtonWrapper>
                 <button type='button' onClick={onSearch} >Search</button>
             </SearchButtonWrapper>
-            {renderResult()}
+            {renderResult(result)}
         </MainPageLayout>
     );
 };
