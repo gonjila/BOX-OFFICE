@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ActorGrid from '../components/actor/ActorGrid';
+import CustomRadio from '../components/CustomRadio';
 import MainPageLayout from '../components/MainPageLayout';
 import ShowGrid from '../components/show/ShowGrid';
 import {apiGet} from '../misc/config'
 import { useLastQuery } from '../misc/custom-hooks';
+import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.styled';
 
 const Home = () => {
     const [input, setInput] = useLastQuery();
@@ -44,21 +46,21 @@ const Home = () => {
 
     return (
         <MainPageLayout>
-            <input type="search" placeholder="searching here" onChange={onInputChange} onKeyDown={onKeyDown} value={input} />
+            <SearchInput type="search" placeholder="searching here" onChange={onInputChange} onKeyDown={onKeyDown} value={input} />
             
-            <div>
-                <label htmlFor="shows-search">
-                    shows
-                    <input type="radio" id="shows-search" value="shows" checked={isSearchShows} onChange={onRadioChange} />
-                </label>
+            <RadioInputsWrapper>
+                <div>
+                    <CustomRadio label="shows" id="shows-search" value="shows" checked={isSearchShows} onChange={onRadioChange} />
+                </div>
                 {" "}
-                <label htmlFor="actors-search">
-                    actors
-                    <input type="radio" id="actors-search" value="people" checked={!isSearchShows} onChange={onRadioChange} />
-                </label>
-            </div>
+                <div>
+                    <CustomRadio label="actors" id="actors-search" value="people" checked={!isSearchShows} onChange={onRadioChange} />
+                </div>
+            </RadioInputsWrapper>
 
-            <button type='button' onClick={onSearch} >Search</button>
+            <SearchButtonWrapper>
+                <button type='button' onClick={onSearch} >Search</button>
+            </SearchButtonWrapper>
             {renderResult()}
         </MainPageLayout>
     );
